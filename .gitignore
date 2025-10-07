@@ -2,8 +2,8 @@
 /vendor/
 /node_modules/
 
-# Build artifacts
-/js/dist/
+# Build artifacts - Keep dist for distribution
+# /js/dist/
 /js/dist-typings/
 
 # IDE
