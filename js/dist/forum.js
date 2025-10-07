@@ -1,2 +1,15 @@
-(()=>{"use strict";System.register("wszdb/flarum-autolock/forum",["flarum/forum/app"],(function(o){var r;return{setters:[function(o){r=o.default}],execute:function(){o("default",void 0),r.initializers.add("wszdb/flarum-autolock",(function(){console.log("[wszdb/flarum-autolock] Extension loaded")}))}}}))})();
-//# sourceMappingURL=forum.js.map
+System.register("wszdb/flarum-autolock/forum", ["flarum/forum/app"], function (_export, _context) {
+  "use strict";
+
+  var app;
+  return {
+    setters: [function (_flarumForumApp) {
+      app = _flarumForumApp.default;
+    }],
+    execute: function () {
+      app.initializers.add('wszdb/flarum-autolock', function () {
+        console.log('[wszdb/flarum-autolock] Extension loaded');
+      });
+    }
+  };
+});
