@@ -20,10 +20,8 @@ return [
     (new Extend\Event())
         ->listen(Posted::class, Listener\PostedListener::class),
     
-    // 设置默认值并序列化到前端
+    // 设置默认值（仅后端使用，不序列化到前端）
     (new Extend\Settings())
         ->default('wszdb-autolock.enabled', true)
-        ->default('wszdb-autolock.threshold', 100)
-        ->serializeToForum('wszdb-autolock.enabled', 'wszdb-autolock.enabled', 'boolval')
-        ->serializeToForum('wszdb-autolock.threshold', 'wszdb-autolock.threshold', 'intval'),
+        ->default('wszdb-autolock.threshold', 100),
 ];

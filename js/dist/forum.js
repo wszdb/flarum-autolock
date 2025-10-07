@@ -11,17 +11,8 @@
     const t=flarum.core.compat["forum/app"];
     var o=e.n(t);
     o().initializers.add("wszdb/flarum-autolock",(function(){
-      // 论坛端初始化
-      // 可以在这里添加前端逻辑，比如显示自动锁定的提示
-      console.log("[Auto Lock] Extension loaded");
-      
-      // 获取设置（已从后端序列化）
-      const enabled = o().forum.attribute("wszdb-autolock.enabled");
-      const threshold = o().forum.attribute("wszdb-autolock.threshold");
-      
-      if (enabled) {
-        console.log(`[Auto Lock] Enabled with threshold: ${threshold}`);
-      }
+      // 论坛端初始化 - 不需要读取设置，所有逻辑在后端处理
+      console.log("[Auto Lock] Extension loaded in forum");
     }))
   })(),
   module.exports=r
