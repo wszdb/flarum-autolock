@@ -22,90 +22,73 @@ class PostedListener
     public function handle(Posted $event)
     {
         $discussion = $event->post->discussion;
-        $post = $event->post;
         
-        // 使用 PSR-3 Logger 而不是 Facade
-        $this->logger->info('[Auto Lock] ========================================');
-        $this->logger->info('[Auto Lock] EVENT TRIGGERED!!!');
-        $this->logger->info('[Auto Lock] ========================================');
+        // 刷新讨论数据以获取最新状态
+        $discussion->refresh();
         
-        $this->logger->info('[Auto Lock] Discussion Info', [
-            'id' => $discussion->id,
+        // 计算总楼层数：comment_count（回复数）+ 1（主题帖）
+        $totalPosts = $discussion->comment_count + 1;
+        
+        $this->logger->info('[Auto Lock] Event triggered', [
+            'discussion_id' => $discussion->id,
             'title' => $discussion->title,
-            'post_count' => $discussion->post_number_index,
-            'is_locked' => $discussion->is_locked,
+            'comment_count' => $discussion->comment_count,
+            'total_posts' => $totalPosts,
         ]);
 
         // 检查扩展是否启用
         $enabled = $this->settings->get('wszdb-autolock.enabled');
         $enabledBool = filter_var($enabled, FILTER_VALIDATE_BOOLEAN);
         
-        $this->logger->info('[Auto Lock] Settings Check', [
-            'enabled_raw' => $enabled,
-            'enabled_bool' => $enabledBool,
-        ]);
-        
         if (!$enabledBool) {
-            $this->logger->warning('[Auto Lock] Extension is DISABLED');
+            $this->logger->info('[Auto Lock] Extension is disabled, skipping');
             return;
         }
 
-        // 获取阈值
+        // 获取阈值设置
         $threshold = (int) $this->settings->get('wszdb-autolock.threshold', 100);
         
-        $this->logger->info('[Auto Lock] Threshold Check', [
+        $this->logger->info('[Auto Lock] Threshold check', [
             'threshold' => $threshold,
-            'current_count' => $discussion->post_number_index,
+            'total_posts' => $totalPosts,
+            'will_lock' => $totalPosts >= $threshold,
         ]);
 
         if ($threshold < 1) {
-            $this->logger->error('[Auto Lock] Invalid threshold', ['value' => $threshold]);
+            $this->logger->warning('[Auto Lock] Invalid threshold value', ['threshold' => $threshold]);
             return;
         }
 
-        // 检查是否已锁定
+        // 如果讨论已经被锁定，跳过
         if ($discussion->is_locked) {
-            $this->logger->info('[Auto Lock] Already locked, skipping');
+            $this->logger->info('[Auto Lock] Discussion already locked, skipping');
             return;
         }
 
         // 检查是否达到阈值
-        $postCount = $discussion->post_number_index;
-        
-        $this->logger->info('[Auto Lock] Final Check', [
-            'post_count' => $postCount,
-            'threshold' => $threshold,
-            'should_lock' => $postCount >= $threshold,
-        ]);
-
-        if ($postCount >= $threshold) {
+        if ($totalPosts >= $threshold) {
             try {
                 $discussion->is_locked = true;
                 $discussion->save();
                 
-                $this->logger->info('[Auto Lock] ========================================');
-                $this->logger->info('[Auto Lock] ✅ DISCUSSION LOCKED SUCCESSFULLY!');
-                $this->logger->info('[Auto Lock] ========================================');
-                $this->logger->info('[Auto Lock] Lock Details', [
+                $this->logger->info('[Auto Lock] Discussion locked successfully', [
                     'discussion_id' => $discussion->id,
                     'discussion_title' => $discussion->title,
-                    'final_count' => $postCount,
+                    'total_posts' => $totalPosts,
                     'threshold' => $threshold,
                 ]);
             } catch (\Exception $e) {
                 $this->logger->error('[Auto Lock] Failed to lock discussion', [
                     'error' => $e->getMessage(),
-                    'trace' => $e->getTraceAsString(),
+                    'discussion_id' => $discussion->id,
                 ]);
             }
         } else {
-            $this->logger->debug('[Auto Lock] Not reached threshold yet', [
-                'current' => $postCount,
+            $this->logger->debug('[Auto Lock] Threshold not reached', [
+                'current_posts' => $totalPosts,
                 'threshold' => $threshold,
-                'remaining' => $threshold - $postCount,
+                'remaining' => $threshold - $totalPosts,
             ]);
         }
-        
-        $this->logger->info('[Auto Lock] Handler completed');
     }
 }
