@@ -1,0 +1,11 @@
+wszdb-autolock:
+  admin:
+    settings:
+      enabled_label: Enable Auto Lock
+      enabled_help: "Automatically lock discussions when they reach the specified post count"
+      threshold_label: Post Count Threshold
+      threshold_help: "Number of posts after which a discussion will be locked (default: 100, minimum: 1)"
+  
+  forum:
+    discussion_locked: "This discussion has been automatically locked after reaching {count} posts"
+    lock_notice: "Auto-locked at {count} posts"

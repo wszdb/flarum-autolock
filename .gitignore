@@ -1,0 +1,14 @@
+/vendor/
+composer.lock
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+node_modules/
+npm-debug.log
+yarn-error.log
+*.tmp
+*.bak
