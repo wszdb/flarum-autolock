@@ -8,6 +8,9 @@
 
 ## Features
 
+<img width="563" height="444" alt="局部截取_20251007_230137" src="https://github.com/user-attachments/assets/5a012bb5-24ee-484b-9d9d-cd35d2b4a164" />
+
+
 - ✅ **Automatic Locking**: Discussions are automatically locked when reaching the configured post count
 - ⚙️ **Configurable Threshold**: Set custom post count threshold in admin panel (default: 100)
 - 🎛️ **Enable/Disable Toggle**: Easy on/off switch in admin settings
