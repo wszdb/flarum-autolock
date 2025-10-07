@@ -1,0 +1,10 @@
+wszdb-autolock:
+  admin:
+    settings:
+      enabled_label: 启用自动锁定
+      enabled_help: 当讨论达到指定楼层数时自动锁定
+      threshold_label: 楼层阈值
+      threshold_help: 讨论达到此楼层数后将自动锁定（默认：100）
+  
+  forum:
+    discussion_locked: 此讨论已在达到 {count} 楼后自动锁定

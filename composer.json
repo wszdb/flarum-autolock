@@ -1,0 +1,41 @@
+{
+    "name": "wszdb/flarum-autolock",
+    "description": "Automatically lock discussions when they reach a specific number of posts",
+    "keywords": [
+        "flarum",
+        "autolock",
+        "discussion",
+        "moderation"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wszdb",
+            "email": "your-email@example.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/wszdb/flarum-autolock/issues",
+        "source": "https://github.com/wszdb/flarum-autolock"
+    },
+    "require": {
+        "flarum/core": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wszdb\\AutoLock\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Auto Lock",
+            "category": "moderation",
+            "icon": {
+                "name": "fas fa-lock",
+                "backgroundColor": "#e74c3c",
+                "color": "#fff"
+            }
+        }
+    }
+}
