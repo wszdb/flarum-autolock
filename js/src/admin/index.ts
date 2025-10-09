@@ -81,4 +81,3 @@ app.initializers.add('wszdb/flarum-autolock', () => {
       ]);
     });
 });
-// trigger build
