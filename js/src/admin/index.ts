@@ -63,7 +63,7 @@ app.initializers.add('wszdb/flarum-autolock', () => {
                         const jsonValue = JSON.stringify(newExemptTags);
                         this.setting('wszdb-autolock.exempt_tags')(jsonValue);
                         
-                        // 标记为已修改
+                        // 标记为已修改.
                         this.dirty = true;
                       }
                     }),
