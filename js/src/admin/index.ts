@@ -59,7 +59,7 @@ app.initializers.add('wszdb/flarum-autolock', () => {
                           newExemptTags = newExemptTags.filter(id => id !== tagId);
                         }
                         
-                        // 保存到设置
+                        // 保存到设置.
                         const jsonValue = JSON.stringify(newExemptTags);
                         this.setting('wszdb-autolock.exempt_tags')(jsonValue);
                         
