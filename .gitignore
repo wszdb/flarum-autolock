@@ -1,21 +1,25 @@
-# Dependencies
-/node_modules
-/vendor
+# 依赖目录
+node_modules/
+vendor/
 
-# Build outputs
-/js/dist/*.map
+# 构建产物（如你把 js/dist 也当成“源码”就删掉这一行）
+js/dist/
 
-# IDE
-/.idea
-/.vscode
-*.swp
-*.swo
-*~
-
-# OS
+# 编辑器 / 系统垃圾
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
 
-# Logs
-*.log
+# 日志 & 锁文件（只保留 composer.lock，去掉 package 锁）
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# 可选：本地测试用的配置文件
+.env
+.flarum-cache/
