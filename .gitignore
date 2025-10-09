@@ -1,14 +1,21 @@
-/vendor/
-composer.lock
-.idea/
-.vscode/
+# Dependencies
+/node_modules
+/vendor
+
+# Build outputs
+/js/dist/*.map
+
+# IDE
+/.idea
+/.vscode
 *.swp
 *.swo
 *~
+
+# OS
 .DS_Store
 Thumbs.db
-node_modules/
-npm-debug.log
-yarn-error.log
-*.tmp
-*.bak
+
+# Logs
+*.log
+npm-debug.log*

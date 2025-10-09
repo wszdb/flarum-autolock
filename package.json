@@ -1,0 +1,19 @@
+{
+  "name": "@wszdb/flarum-autolock",
+  "version": "2.2.0",
+  "description": "Automatically lock discussions after reaching a specified number of posts",
+  "keywords": [
+    "flarum",
+    "extension"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  },
+  "devDependencies": {
+    "flarum-webpack-config": "^2.0.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^4.0.0"
+  }
+}

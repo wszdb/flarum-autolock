@@ -5,6 +5,9 @@ wszdb-autolock:
       enabled_help: "当讨论达到指定楼层数时自动锁定"
       threshold_label: 楼层阈值
       threshold_help: "达到此楼层数后讨论将被锁定（默认：100，最小值：1）"
+      exempt_tags_label: 豁免标签
+      exempt_tags_help: "带有这些标签的讨论将不会被自动锁定"
+      no_tags: "暂无可用标签。请先在标签扩展中创建标签。"
   
   forum:
     discussion_locked: "此讨论在达到 {count} 楼后已被自动锁定"

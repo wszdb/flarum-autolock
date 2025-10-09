@@ -45,6 +45,31 @@ class PostedListener
             return;
         }
 
+        // 获取豁免标签列表
+        $exemptTagsJson = $this->settings->get('wszdb-autolock.exempt_tags', '[]');
+        $exemptTags = json_decode($exemptTagsJson, true) ?: [];
+        
+        // 检查当前讨论是否有豁免标签
+        if (!empty($exemptTags)) {
+            $discussionTags = $discussion->tags()->pluck('id')->toArray();
+            
+            $this->logger->info('[Auto Lock] Checking exempt tags', [
+                'discussion_tags' => $discussionTags,
+                'exempt_tags' => $exemptTags,
+            ]);
+            
+            // 如果讨论的任一标签在豁免列表中，跳过锁定
+            foreach ($discussionTags as $tagId) {
+                if (in_array($tagId, $exemptTags)) {
+                    $this->logger->info('[Auto Lock] Discussion has exempt tag, skipping', [
+                        'discussion_id' => $discussion->id,
+                        'exempt_tag_id' => $tagId,
+                    ]);
+                    return;
+                }
+            }
+        }
+
         // 获取阈值设置
         $threshold = (int) $this->settings->get('wszdb-autolock.threshold', 100);
         

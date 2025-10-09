@@ -1,34 +1,5 @@
-(()=>{
-  var e={
-    n:r=>{var t=r&&r.__esModule?()=>r.default:()=>r;return e.d(t,{a:t}),t},
-    d:(r,t)=>{for(var o in t)e.o(t,o)&&!e.o(r,o)&&Object.defineProperty(r,o,{enumerable:!0,get:t[o]})},
-    o:(e,r)=>Object.prototype.hasOwnProperty.call(e,r),
-    r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}
-  },r={};
-  (()=>{
-    "use strict";
-    e.r(r);
-    const t=flarum.core.compat["admin/app"];
-    var o=e.n(t);
-    o().initializers.add("wszdb/flarum-autolock",(function(){
-      // 注册管理面板设置
-      o().extensionData
-        .for("wszdb-autolock")
-        .registerSetting({
-          setting: "wszdb-autolock.enabled",
-          type: "boolean",
-          label: o().translator.trans("wszdb-autolock.admin.settings.enabled_label"),
-          help: o().translator.trans("wszdb-autolock.admin.settings.enabled_help")
-        })
-        .registerSetting({
-          setting: "wszdb-autolock.threshold",
-          type: "number",
-          label: o().translator.trans("wszdb-autolock.admin.settings.threshold_label"),
-          help: o().translator.trans("wszdb-autolock.admin.settings.threshold_help"),
-          min: 1,
-          placeholder: "100"
-        });
-    }))
-  })(),
-  module.exports=r
-})();
+/**
+ * Flarum AutoLock v2.2.0 - Admin Panel
+ * Compiled from TypeScript
+ */
+module.exports=function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(e,t,n){"use strict";n.r(t);app.initializers.add("wszdb/flarum-autolock",(function(){app.extensionData.for("wszdb-autolock").registerSetting({setting:"wszdb-autolock.enabled",type:"boolean",label:app.translator.trans("wszdb-autolock.admin.settings.enabled_label"),help:app.translator.trans("wszdb-autolock.admin.settings.enabled_help")}).registerSetting({setting:"wszdb-autolock.threshold",type:"number",label:app.translator.trans("wszdb-autolock.admin.settings.threshold_label"),help:app.translator.trans("wszdb-autolock.admin.settings.threshold_help"),min:1,placeholder:"100"}).registerSetting((function(){var e=app.store.all("tags"),t=app.data.settings["wszdb-autolock.exempt_tags"]||"[]",n=[];try{n=JSON.parse(t)}catch(e){console.error("[Auto Lock] Failed to parse exempt tags:",e)}return m("div",{className:"Form-group"},[m("label",null,app.translator.trans("wszdb-autolock.admin.settings.exempt_tags_label")),m("div",{className:"helpText"},app.translator.trans("wszdb-autolock.admin.settings.exempt_tags_help")),m("div",{style:"margin-top: 10px;"},e.length>0?e.map((function(e){var t=n.includes(parseInt(e.id()));return m("div",{className:"checkbox",style:"margin-bottom: 8px;"},[m("label",null,[m("input",{type:"checkbox",checked:t,onchange:function(t){var r=parseInt(e.id()),o=[].concat(n);t.target.checked?o.includes(r)||o.push(r):o=o.filter((function(e){return e!==r})),app.data.settings["wszdb-autolock.exempt_tags"]=JSON.stringify(o),this.setting("wszdb-autolock.exempt_tags")(JSON.stringify(o))}}),m("span",{className:"tagLabel",style:"background-color: "+e.color()+"; color: #fff; padding: 2px 8px; border-radius: 3px; margin-left: 5px;"},e.name())])])})):m("div",{className:"helpText"},app.translator.trans("wszdb-autolock.admin.settings.no_tags")))])}))}))}]);

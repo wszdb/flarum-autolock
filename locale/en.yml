@@ -5,6 +5,9 @@ wszdb-autolock:
       enabled_help: "Automatically lock discussions when they reach the specified post count"
       threshold_label: Post Count Threshold
       threshold_help: "Number of posts after which a discussion will be locked (default: 100, minimum: 1)"
+      exempt_tags_label: Exempt Tags
+      exempt_tags_help: "Discussions with these tags will not be automatically locked"
+      no_tags: "No tags available. Please create tags first in the Tags extension."
   
   forum:
     discussion_locked: "This discussion has been automatically locked after reaching {count} posts"

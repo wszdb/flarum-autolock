@@ -23,5 +23,6 @@ return [
     // 设置默认值（仅后端使用，不序列化到前端）
     (new Extend\Settings())
         ->default('wszdb-autolock.enabled', true)
-        ->default('wszdb-autolock.threshold', 100),
+        ->default('wszdb-autolock.threshold', 100)
+        ->default('wszdb-autolock.exempt_tags', '[]'),  // 新增：豁免标签列表（JSON格式）
 ];
