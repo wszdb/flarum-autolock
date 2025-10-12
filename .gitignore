@@ -1,25 +1,35 @@
-# 依赖目录
+# 依赖项
 node_modules/
 vendor/
 
-# 构建产物（如你把 js/dist 也当成“源码”就删掉这一行）
-js/dist/
+# 编译生成的文件
+dist/
+*.js
+!webpack.config.js
+*.map
+*.d.ts
 
-# 编辑器 / 系统垃圾
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
-*.sublime-project
-*.sublime-workspace
-
-# 日志 & 锁文件（只保留 composer.lock，去掉 package 锁）
+# 包管理文件
+composer.lock
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
-yarn.lock
 
-# 可选：本地测试用的配置文件
+# 编辑器/IDE配置
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# 环境变量和配置文件
 .env
-.flarum-cache/
+.env.local
+.env.*.local
+
+# 测试相关
+phpunit.xml
+coverage/
+
+# 其他临时文件
+main
