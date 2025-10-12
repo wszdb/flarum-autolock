@@ -2,12 +2,6 @@
 node_modules/
 vendor/
 
-# 编译生成的文件
-dist/
-*.js
-!webpack.config.js
-*.map
-*.d.ts
 
 # 包管理文件
 composer.lock
