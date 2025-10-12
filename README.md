@@ -7,11 +7,14 @@
 
 🔒 Automatically lock discussions when they reach a specified number of posts.
 
-## ✨ New in v2.2.0
+<img width="809" height="548" alt="局部截取_20251012_113941" src="https://github.com/user-attachments/assets/8848d52e-e90a-4f8c-93e4-ddfa250cfb8a" />
+
+## ✨ New in v2.4.0
 
 - 🏷️ **Tag Exemption**: Configure specific tags to be exempt from auto-locking
 - 🎛️ **Multi-Tag Support**: Select one or multiple tags for exemption
 - 🌐 **Enhanced UI**: Intuitive tag selector in admin panel
+
 
 ## Features
 
@@ -88,59 +91,6 @@ Discussions with exempt tags will never be auto-locked, regardless of post count
 4. If total posts ≥ threshold and discussion is not locked, it locks the discussion
 5. All actions are logged for monitoring
 
-### Important Notes
-
-- ⚠️ **Only affects new posts**: Extension does not retroactively lock old discussions
-- ⚠️ **Event-driven**: Locks happen when someone posts, not on a schedule
-- ✅ **Skips locked discussions**: Already locked discussions are ignored
-- 🏷️ **Tag priority**: Exempt tags override threshold settings
-
-## Development
-
-### Building from Source
-
-```bash
-# Install dependencies
-npm install
-
-# Development build with watch
-npm run dev
-
-# Production build
-npm run build
-```
-
-### File Structure
-
-```
-flarum-autolock/
-├── src/
-│   └── Listener/
-│       └── PostedListener.php    # Core auto-lock logic
-├── js/
-│   ├── src/
-│   │   ├── admin/
-│   │   │   └── index.ts          # Admin panel UI
-│   │   └── forum/
-│   │       └── index.ts          # Forum frontend
-│   └── dist/                      # Compiled JS (generated)
-├── locale/
-│   ├── en.yml                     # English translations
-│   └── zh-Hans.yml                # Chinese translations
-├── extend.php                     # Extension registration
-└── composer.json                  # PHP dependencies
-```
-
-## Changelog
-
-### v2.2.0 (2025-01-09)
-- ✨ Added tag exemption feature
-- 🎨 Enhanced admin UI with tag selector
-- 📝 Updated documentation
-- 🌐 Added translations for new features
-
-### v2.1.0
-- Initial release with basic auto-lock functionality
 
 ## License
 
@@ -151,7 +101,10 @@ This extension is licensed under the [MIT License](LICENSE).
 - [Packagist](https://packagist.org/packages/wszdb/flarum-autolock)
 - [GitHub Repository](https://github.com/wszdb/flarum-autolock)
 - [Flarum Community](https://discuss.flarum.org)
+- This plugin is fully automatically developed using [AiPy](https://www.aipyaipy.com). Invitation Code: XOFS.
+- 本插件使用[AiPy](https://www.aipyaipy.com)全自动开发完成，邀请码：XOFS.
 
 ---
 
-**Developed by** [wszdb](https://github.com/wszdb)
+
+**Developed by** [wszdb](https://github.com/wszdb) 
