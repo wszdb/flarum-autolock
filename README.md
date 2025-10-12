@@ -6,6 +6,7 @@
 ![Version](https://img.shields.io/badge/version-2.2.0-green.svg)
 
 🔒 Automatically lock discussions when they reach a specified number of posts.
+
 🔒 Flarum 贴子自动锁定插件，设置后，某个贴子回复数量超过特定楼层时，自动锁定，同时支持对特定标签（Tags）锁定豁免.
 
 ## ✨ New in v2.4.0
@@ -108,5 +109,6 @@ This extension is licensed under the [MIT License](LICENSE).
 
 
 **Developed by** [wszdb](https://github.com/wszdb) 
+
 
 
