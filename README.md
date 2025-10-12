@@ -7,7 +7,8 @@
 
 🔒 Automatically lock discussions when they reach a specified number of posts.
 
-<img width="809" height="548" alt="局部截取_20251012_113941" src="https://github.com/user-attachments/assets/8848d52e-e90a-4f8c-93e4-ddfa250cfb8a" />
+<img width="579" height="533" alt="局部截取_20251012_114438" src="https://github.com/user-attachments/assets/6a594ab5-9f83-4ebd-9ad0-b5ca08cce703" />
+
 
 ## ✨ New in v2.4.0
 
@@ -108,3 +109,4 @@ This extension is licensed under the [MIT License](LICENSE).
 
 
 **Developed by** [wszdb](https://github.com/wszdb) 
+
