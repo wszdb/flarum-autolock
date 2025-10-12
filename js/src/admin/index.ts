@@ -1,6 +1,4 @@
 import app from 'flarum/admin/app';
-import { extend } from 'flarum/common/extend';
-import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 
 app.initializers.add('wszdb/flarum-autolock', () => {
   app.extensionData
@@ -19,66 +17,104 @@ app.initializers.add('wszdb/flarum-autolock', () => {
       min: 1,
       placeholder: '100',
     })
-    .registerSetting(function (this: ExtensionPage) {
-      const tags = app.store.all('tags');
-      const settingValue = this.setting('wszdb-autolock.exempt_tags')();
-      let exemptTags: number[] = [];
+    .registerSetting(function (this: any) {
+      // 保存当前组件的this引用
+      const component = this;
       
-      try {
-        exemptTags = settingValue ? JSON.parse(settingValue) : [];
-      } catch (e) {
-        console.error('[Auto Lock] Failed to parse exempt tags:', e);
-        exemptTags = [];
-      }
+      // 获取所有标签
+      const tags = app.store.all('tags');
+      
+      // 获取当前豁免标签设置
+      const getCurrentExemptTags = () => {
+        const settingValue = this.setting('wszdb-autolock.exempt_tags')() || '[]';
+        try {
+          return settingValue ? JSON.parse(settingValue) : [];
+        } catch (e) {
+          console.error('[Auto Lock] Failed to parse exempt tags:', e);
+          return [];
+        }
+      };
+      
+      // 获取当前豁免标签
+      const exemptTags = getCurrentExemptTags();
 
       return m('div', { className: 'Form-group' }, [
         m('label', app.translator.trans('wszdb-autolock.admin.settings.exempt_tags_label')),
         m('div', { className: 'helpText' }, 
           app.translator.trans('wszdb-autolock.admin.settings.exempt_tags_help')
         ),
-        m('div', { style: 'margin-top: 10px;' },
+        m('div', { 
+          style: 'margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;'
+        },
           tags.length > 0
             ? tags.map((tag: any) => {
                 const tagId = parseInt(tag.id());
                 const isChecked = exemptTags.includes(tagId);
                 
-                return m('div', { className: 'checkbox', style: 'margin-bottom: 8px;' }, [
-                  m('label', [
+                // 获取标签名称，如果有父标签则显示为 父标签@子标签
+                let tagName = tag.name();
+                if (tag.parent()) {
+                  try {
+                    const parentTag = app.store.getById('tags', tag.parent().id());
+                    if (parentTag) {
+                      tagName = `${parentTag.name()}@${tagName}`;
+                    }
+                  } catch (e) {
+                    // 忽略父标签获取错误
+                  }
+                }
+                
+                return m('div', { 
+                  className: 'checkbox', 
+                  style: 'margin-bottom: 8px; white-space: nowrap; flex: 1 1 auto;'
+                }, [
+                  m('label', {
+                    style: 'display: flex; align-items: center; cursor: pointer;'
+                  }, [
                     m('input', {
                       type: 'checkbox',
                       checked: isChecked,
-                      onchange: (e: Event) => {
-                        const target = e.target as HTMLInputElement;
-                        let newExemptTags = [...exemptTags];
+                      onchange: function(e: Event) {
+                        const checked = (e.target as HTMLInputElement).checked;
                         
-                        if (target.checked) {
-                          if (!newExemptTags.includes(tagId)) {
-                            newExemptTags.push(tagId);
+                        // 获取当前的豁免标签列表
+                        let currentExemptTags = getCurrentExemptTags();
+                        
+                        if (checked) {
+                          // 添加标签ID（避免重复）
+                          if (!currentExemptTags.includes(tagId)) {
+                            currentExemptTags.push(tagId);
                           }
                         } else {
-                          newExemptTags = newExemptTags.filter(id => id !== tagId);
+                          // 移除标签ID
+                          currentExemptTags = currentExemptTags.filter((id: number) => id !== tagId);
                         }
                         
-                        // 保存到设置.
-                        const jsonValue = JSON.stringify(newExemptTags);
-                        this.setting('wszdb-autolock.exempt_tags')(jsonValue);
+                        // 更新设置值
+                        const newValue = JSON.stringify(currentExemptTags);
+                        component.setting('wszdb-autolock.exempt_tags')(newValue);
                         
-                        // 标记为已修改。
-                        this.dirty = true;
+                        // 关键修复：调用 dirty() 方法而不是设置属性
+                        if (typeof component.dirty === 'function') {
+                          component.dirty();
+                        }
+                        
+                        // 触发重绘
+                        m.redraw();
+                        
+                        console.log('[Auto Lock] Tags updated:', {
+                          tagId,
+                          checked,
+                          exemptTags: currentExemptTags
+                        });
                       }
                     }),
-                    m('span', {
-                      className: 'tagLabel',
-                      style: `background-color: ${tag.color()}; color: #fff; padding: 2px 8px; border-radius: 3px; margin-left: 5px;`
-                    }, tag.name())
+                    m('span', { style: 'margin-left: 5px;' }, tagName)
                   ])
                 ]);
               })
-            : m('div', { className: 'helpText' },
-                app.translator.trans('wszdb-autolock.admin.settings.no_tags')
-              )
+            : m('div', { className: 'helpText' }, app.translator.trans('wszdb-autolock.admin.settings.no_tags_found'))
         )
       ]);
     });
 });
-
