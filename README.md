@@ -6,9 +6,7 @@
 ![Version](https://img.shields.io/badge/version-2.2.0-green.svg)
 
 🔒 Automatically lock discussions when they reach a specified number of posts.
-
-<img width="579" height="533" alt="局部截取_20251012_114438" src="https://github.com/user-attachments/assets/6a594ab5-9f83-4ebd-9ad0-b5ca08cce703" />
-
+🔒 Flarum 贴子自动锁定插件，设置后，某个贴子回复数量超过特定楼层时，自动锁定，同时支持对特定标签（Tags）锁定豁免.
 
 ## ✨ New in v2.4.0
 
@@ -83,6 +81,7 @@ Discussions with exempt tags will never be auto-locked, regardless of post count
 2. When a post is published, the extension checks discussion tags
 3. If any tag matches exempt list → Skip auto-lock
 4. Otherwise → Apply normal threshold logic
+<img width="579" height="533" alt="局部截取_20251012_114438" src="https://github.com/user-attachments/assets/6a594ab5-9f83-4ebd-9ad0-b5ca08cce703" />
 
 ### Trigger Logic
 
@@ -109,4 +108,5 @@ This extension is licensed under the [MIT License](LICENSE).
 
 
 **Developed by** [wszdb](https://github.com/wszdb) 
+
 
